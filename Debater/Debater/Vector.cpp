@@ -2,29 +2,32 @@
 #include "Vector.h"
 #include"Head.h"
 
-using namespace SUST;
+using SUST::Vector;
 
-Vector::Vector(unsigned int uLen, double dDir) {
-	uLen = 0;
-	dDir = 0.0;
+Vector::Vector(double dLen, double dDir)
+{
+	this->reAngle(dDir);
+	this->reMod(dLen);
 }
 
-void Vector::getMod(unsigned int uLen) {
-	length = uLen;
+double Vector::getMod() {
+	return this->length;
 }
 
-void Vector::getAngle(double dDir) {
-	direction = dDir;
+double Vector::getAngle() {
+	return this->direction;
 }
 
-bool Vector::reMod(unsigned int uLen) {
-	if (uLen <= 0) return 0;
-	else return 1;
+bool Vector::reMod(double dLen) {
+	if (dLen < 1e-6) return false;
+	this->length = dLen;
+	return true;
 }
 
 bool Vector::reAngle(double dDir) {
-	if (dDir < 0 || dDir>360) return 0;
-	else return 1;
+	if (dDir < 1e-6) return false;
+	this->direction = dDir - (int)(dDir / 360) * 360.0;
+	return true;
 }
 
 Vector& Vector::add(const Vector &vVec) {
@@ -36,7 +39,7 @@ Vector& Vector::add(const Vector &vVec) {
 	n = this->between(vVec);
 	vec.length = sqrt(pow(this->length, 2) + pow(vVec.length, 2)
 		+ 2 * (this->length)*(vVec.length)*cos(n));
-	return vec;
+	return;
 }
 
 double& Vector::multiply(const Vector &vVec) {
@@ -44,7 +47,7 @@ double& Vector::multiply(const Vector &vVec) {
 	double n;
 	n = this->between(vVec);
 	j = (this->length)*(vVec.length)*cos(n);
-	return j;                                                                            //ÏòÁ¿µã³Ë·µ»ØµÄÖµ
+	return j;                                                                            //å‘é‡ç‚¹ä¹˜è¿”å›çš„å€¼
 }
 
 Vector& Vector::minus(const Vector &vVec) {
