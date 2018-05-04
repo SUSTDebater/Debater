@@ -6,13 +6,13 @@
 namespace SUST {
 	class Vector {
 	public:
-		Vector() {};
-		Vector(unsigned double uLen, double dDir);
+		Vector():length(0.0), direction(0.0) {};
+		Vector(double dLen, double dDir);
 		Vector(const Vector& vVec);
 		~Vector() {};
-		unsigned double getMod();
+		double getMod();
 		double getAngle();						  //取长度和方向角度
-		bool reMod(unsigned double uLen);
+		bool reMod(double dLen);
 		bool reAngle(double dDir);                        //判断是否输入错误
 	public:
 		Vector &add(const Vector &vVec);
@@ -33,8 +33,8 @@ namespace SUST {
 
 
 	private:
-		unsigned double    length;                           //长度
-		double             direction;                        //方向角度
+		double    length;                           //长度
+		double    direction;                        //方向角度
 	};
 }
 
