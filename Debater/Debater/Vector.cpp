@@ -10,6 +10,11 @@ Vector::Vector(double dLen, double dDir)
 	this->reMod(dLen);
 }
 
+Vector::Vector(const Vector& vVec) {
+	this->length = vVec.length;
+	this->direction = vVec.direction;
+}
+
 double Vector::getMod() {
 	return this->length;
 }
@@ -31,75 +36,94 @@ bool Vector::reAngle(double dDir) {
 }
 
 Vector& Vector::add(const Vector &vVec) {
-	Vector vec;
-	vec.direction= this->direction + vVec.direction;
-	if (vec.direction > 360)
-		vec.direction -= 360;
+	double dir;
+	double len;
+	dir = this->direction + vVec.direction;
+	if (dir>=360)
+		dir-= 360;
 	double n;
 	n = this->between(vVec);
-	vec.length = sqrt(pow(this->length, 2) + pow(vVec.length, 2)
+	len= sqrt(pow(this->length, 2) + pow(vVec.length, 2)
 		+ 2 * (this->length)*(vVec.length)*cos(n));
-	return;
+	return Vector (len ,dir);
 }
 
-double& Vector::multiply(const Vector &vVec) {
+double Vector::multiply(const Vector &vVec) {
 	double j;
 	double n;
 	n = this->between(vVec);
 	j = (this->length)*(vVec.length)*cos(n);
-	return j;                                                                            //å‘é‡ç‚¹ä¹˜è¿”å›çš„å€¼
+	return j;                                                                            //ÏòÁ¿µã³Ë·µ»ØµÄÖµ
+}
+
+Vector& Vector::multiply(double dNum) {
+	double len;
+	len = this->length*dNum;
+	return Vector(len, this->direction);
 }
 
 Vector& Vector::minus(const Vector &vVec) {
-	Vector vec;
-	vec=vVec;                                                             
-	return this->add(~vec);
+	Vector vec = vVec;
+	vec = this->add(~vec);
+	return Vector (vec.length,vec.direction);
 }
 
 double Vector::between(const Vector &vVec) {
-	Vector vec;
-	vec,direction = fabs(this->direction - vVec.direction);
-	return vec.direction;
+	double dir;
+	dir = fabs(this->direction - vVec.direction);
+	return dir;
 }
 
 bool Vector::vertical(const Vector &vVec) {
 	if (this->between(vVec) == 90 || this->between(vVec) == 270)
-		return 1;
-	else return 0;
+		return true;
+    return false;
 }
 
 bool Vector::parallel(const Vector &vVec) {
 	if (this->between(vVec) == 0 || this->between(vVec) == 180)
-		return 1;
-	else return 0;
+		return true;
+    return false;
 }
 
-bool Vector:: equal(const Vector &vVec) {
+bool Vector::equal(const Vector &vVec) {
 	if (this->between(vVec) == 0 && this->length == vVec.length)
-		return 1;
-	else return 0;
+		return true;
+	return false;
 }
 
-Vector& Vector::operator +(const Vector &vVec) {
+inline Vector& Vector::operator +(const Vector &vVec) {
 	return this->add(vVec);
 }
 
-Vector &Vector::operator *(int n){
-	Vector vec;
-	vec = *this;
-	vec.length *= n;
-	return vec;
-}
-
-Vector& Vector::operator ~(){
+Vector& Vector::operator ~() {
 	Vector vec;
 	vec = *this;
 	if (vec.direction <= 180)
 		vec.direction += 180;
 	else vec.direction -= 180;
-	return vec;
+	return Vector(vec.length,vec.direction);
 }
 
-Vector& Vector::operator -(const Vector &vVec) {
+inline double Vector:: operator *(const Vector& vVec) {
+	return this->multiply(vVec);
+}
+
+inline Vector& Vector::operator -(const Vector &vVec) {
 	return this->minus(vVec);
 }
+
+inline Vector& Vector ::operator =(const Vector &vVec) {
+	return Vector(vVec.length, vVec.direction);
+}
+
+
+inline bool Vector ::operator ==(const Vector &vVec) {
+	if (this->equal(vVec))  return true;
+		return false;
+}
+
+Vector &operator *(const Vector& vVec, double dNum) {
+	return vVec.multiply(dNum);                                //×îºóÒ»¸öµã³Ë ÎÒ²»ÖªµÀÕâ¸öµ½µ×Ëã²»Ëã²»ÊÇÓÑÔªº¯ÊıµÄÔõÃ´µ÷ÓÃ Ó¦¸ÃĞ´´íÁË 
+}                                                              //µ«ÊÇÎÒ²»»áĞ´  Äã¿´Ò»ÏÂ  ¾ÍÕâÒ»¸öµØ·½²»»á ÆäËûµØ·½¶¼°´ÕÕÄãµÄÒªÇó¸ÄÁË
+                                                               //Èç¹û»¹ÓĞ´íµÄ ¸úÎÒËµ¾ÍĞĞÁË ÎÒ¼ÌĞøÈ¥¸Ä¡£
