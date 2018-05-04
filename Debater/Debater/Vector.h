@@ -7,32 +7,38 @@ namespace SUST {
 	class Vector {
 	public:
 		Vector() {};
-		Vector(unsigned int uLen, double dDir);
+		Vector(unsigned double uLen, double dDir);
+		Vector(const Vector& vVec);
 		~Vector() {};
-		void getMod(unsigned int uLen);
-		void getAngle(double dDir);						  //È¡³¤¶ÈºÍ·½Ïò½Ç¶È
-		bool reMod(unsigned int uLen);
-		bool reAngle(double dDir);                        //ÅĞ¶ÏÊÇ·ñÊäÈë´íÎó
+		unsigned double getMod();
+		double getAngle();						  //å–é•¿åº¦å’Œæ–¹å‘è§’åº¦
+		bool reMod(unsigned double uLen);
+		bool reAngle(double dDir);                        //åˆ¤æ–­æ˜¯å¦è¾“å…¥é”™è¯¯
 	public:
 		Vector &add(const Vector &vVec);
-		Vector &minus(const Vector &vVec);                     //ÏòÁ¿Ö®¼äµÄ¼Ó¼õ³Ë³ı
-		double &multiply(const Vector &vVec);
-		double between(const Vector &vVec);               //ÏòÁ¿Ö®¼äµÄ½Ç¶È
-		bool vertical(const Vector &vVec);                //ÅĞ¶ÏÏòÁ¿ÊÇ·ñ´¹Ö±
-		bool parallel(const Vector &vVec);                //ÅĞ¶ÏÏòÁ¿ÊÇ·ñÆ½ĞĞ
-		bool equal(const Vector &vVec);                   //ÅĞ¶ÏÏòÁ¿ÊÇ·ñÏàµÈ
+		Vector &minus(const Vector &vVec);                     //å‘é‡ä¹‹é—´çš„åŠ å‡ä¹˜é™¤
+		double multiply(const Vector &vVec);
+		Vector &multiply(double dNum);
+		double between(const Vector &vVec);               //å‘é‡ä¹‹é—´çš„è§’åº¦
+		bool vertical(const Vector &vVec);                //åˆ¤æ–­å‘é‡æ˜¯å¦å‚ç›´
+		bool parallel(const Vector &vVec);                //åˆ¤æ–­å‘é‡æ˜¯å¦å¹³è¡Œ
+		bool equal(const Vector &vVec);                   //åˆ¤æ–­å‘é‡æ˜¯å¦ç›¸ç­‰
 	public:
-		Vector& operator ~();                             //ÖØÔØÈ¡·´·½Ïò
-		Vector& operator *(int n);                        //ÖØÔØÒ»¸ö³Ë·¨È¡Êı³Ë
-		Vector& operator +(const Vector &vVec);           //ÖØÔØÒ»¸ö¼ÓºÅ
-		Vector& operator -(const Vector &vVec);           //ÖØÔØÒ»¸ö¼õºÅ
+		Vector& operator ~();                             //é‡è½½å–åæ–¹å‘
+		double operator *(const Vector& vVec);                        //é‡è½½ä¸€ä¸ªä¹˜æ³•å–æ•°ä¹˜
+		Vector& operator +(const Vector &vVec);           //é‡è½½ä¸€ä¸ªåŠ å·
+		Vector& operator -(const Vector &vVec);           //é‡è½½ä¸€ä¸ªå‡å·
+		Vector& operator =(const Vector &vVec);
+		bool operator ==(const Vector &vVec);
 
 
 	private:
-		unsigned int    length;                           //³¤¶È
-		double          direction;                        //·½Ïò½Ç¶È
+		unsigned double    length;                           //é•¿åº¦
+		double             direction;                        //æ–¹å‘è§’åº¦
 	};
 }
+
+Vector &operator *(const Vector& vVec,double dNum);
 
 #endif                                                    // !_VECTOR_H
 
