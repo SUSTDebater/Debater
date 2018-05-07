@@ -35,7 +35,7 @@ bool Vector::reAngle(double dDir) {
 	return true;
 }
 
-Vector& Vector::add(const Vector &vVec) {
+const Vector& Vector::add(const Vector &vVec) {
 	double dir;
 	double len;
 	dir = this->direction + vVec.direction;
@@ -53,16 +53,16 @@ double Vector::multiply(const Vector &vVec) {
 	double n;
 	n = this->between(vVec);
 	j = (this->length)*(vVec.length)*cos(n);
-	return j;                                                                            //ÏòÁ¿µã³Ë·µ»ØµÄÖµ
+	return j;                                                                            //å‘é‡ç‚¹ä¹˜è¿”å›çš„å€¼
 }
 
-Vector& Vector::multiply(double dNum) {
+const Vector& Vector::multiply(double dNum) {
 	double len;
 	len = this->length*dNum;
 	return Vector(len, this->direction);
 }
 
-Vector& Vector::minus(const Vector &vVec) {
+const Vector& Vector::minus(const Vector &vVec) {
 	Vector vec = vVec;
 	vec = this->add(~vec);
 	return Vector (vec.length,vec.direction);
@@ -86,11 +86,11 @@ inline bool Vector::equal(const Vector &vVec) {
 	return this->between(vVec) == 0 && this->length == vVec.length;
 }
 
-inline Vector& Vector::operator +(const Vector &vVec) {
+inline const Vector& Vector::operator +(const Vector &vVec) {
 	return this->add(vVec);
 }
 
-Vector& Vector::operator ~() {
+const Vector& Vector::operator ~() {
 	Vector vec;
 	vec = *this;
 	if (vec.direction <= 180)
@@ -103,11 +103,11 @@ inline double Vector:: operator *(const Vector& vVec) {
 	return this->multiply(vVec);
 }
 
-inline Vector& Vector::operator -(const Vector &vVec) {
+inline const Vector& Vector::operator -(const Vector &vVec) {
 	return this->minus(vVec);
 }
 
-inline Vector& Vector ::operator =(const Vector &vVec) {
+inline const Vector& Vector ::operator =(const Vector &vVec) {
 	return Vector(vVec.length, vVec.direction);
 }
 
@@ -116,7 +116,7 @@ inline bool Vector ::operator ==(const Vector &vVec) {
 	return (this->equal(vVec));
 }
 
-inline Vector &operator *(const Vector& vVec, double dNum) {
-	return vVec.multiply(dNum);                                //×îºóÒ»¸öµã³Ë ÎÒ²»ÖªµÀÕâ¸öµ½µ×Ëã²»Ëã²»ÊÇÓÑÔªº¯ÊıµÄÔõÃ´µ÷ÓÃ Ó¦¸ÃĞ´´íÁË 
-}                                                              //µ«ÊÇÎÒ²»»áĞ´  Äã¿´Ò»ÏÂ  ¾ÍÕâÒ»¸öµØ·½²»»á ÆäËûµØ·½¶¼°´ÕÕÄãµÄÒªÇó¸ÄÁË
-                                                               //Èç¹û»¹ÓĞ´íµÄ ¸úÎÒËµ¾ÍĞĞÁË ÎÒ¼ÌĞøÈ¥¸Ä¡£
+const Vector &operator *(Vector& vVec, double dNum) {
+	return vVec.multiply(dNum);                                //æœ€åä¸€ä¸ªç‚¹ä¹˜ æˆ‘ä¸çŸ¥é“è¿™ä¸ªåˆ°åº•ç®—ä¸ç®—ä¸æ˜¯å‹å…ƒå‡½æ•°çš„æ€ä¹ˆè°ƒç”¨ åº”è¯¥å†™é”™äº† 
+}                                                              //ä½†æ˜¯æˆ‘ä¸ä¼šå†™  ä½ çœ‹ä¸€ä¸‹  å°±è¿™ä¸€ä¸ªåœ°æ–¹ä¸ä¼š å…¶ä»–åœ°æ–¹éƒ½æŒ‰ç…§ä½ çš„è¦æ±‚æ”¹äº†
+                                                               //å¦‚æœè¿˜æœ‰é”™çš„ è·Ÿæˆ‘è¯´å°±è¡Œäº† æˆ‘ç»§ç»­å»æ”¹ã€‚
