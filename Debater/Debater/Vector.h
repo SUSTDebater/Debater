@@ -11,34 +11,34 @@ namespace SUST {
 		Vector(const Vector& vVec);
 		~Vector() {};
 		double getMod();
-		double getAngle();						          //È¡³¤¶ÈºÍ·½Ïò½Ç¶È
+		double getAngle();						          //å–é•¿åº¦å’Œæ–¹å‘è§’åº¦
 		bool reMod(double dLen);
-		bool reAngle(double dDir);                        //ÅĞ¶ÏÊÇ·ñÊäÈë´íÎó
+		bool reAngle(double dDir);                        //åˆ¤æ–­æ˜¯å¦è¾“å…¥é”™è¯¯
 	public:
-		Vector & add(const Vector &vVec);
-		Vector &minus(const Vector &vVec);                //ÏòÁ¿Ö®¼äµÄ¼Ó¼õ³Ë³ı
+		const Vector & add(const Vector &vVec);
+		const Vector &minus(const Vector &vVec);                //å‘é‡ä¹‹é—´çš„åŠ å‡ä¹˜é™¤
 		double multiply(const Vector &vVec);
-		Vector &multiply(double dNum);
-		double between(const Vector &vVec);               //ÏòÁ¿Ö®¼äµÄ½Ç¶È
-		bool vertical(const Vector &vVec);                //ÅĞ¶ÏÏòÁ¿ÊÇ·ñ´¹Ö±
-		bool parallel(const Vector &vVec);                //ÅĞ¶ÏÏòÁ¿ÊÇ·ñÆ½ĞĞ
-		bool equal(const Vector &vVec);                   //ÅĞ¶ÏÏòÁ¿ÊÇ·ñÏàµÈ
+		const Vector &multiply(double dNum);
+		double between(const Vector &vVec);               //å‘é‡ä¹‹é—´çš„è§’åº¦
+		bool vertical(const Vector &vVec);                //åˆ¤æ–­å‘é‡æ˜¯å¦å‚ç›´
+		bool parallel(const Vector &vVec);                //åˆ¤æ–­å‘é‡æ˜¯å¦å¹³è¡Œ
+		bool equal(const Vector &vVec);                   //åˆ¤æ–­å‘é‡æ˜¯å¦ç›¸ç­‰
 	public:
-		Vector & operator ~();                            //ÖØÔØÈ¡·´·½Ïò
-		double operator *(const Vector& vVec);            //ÖØÔØÒ»¸ö³Ë·¨È¡Êı³Ë
-		Vector& operator +(const Vector &vVec);           //ÖØÔØÒ»¸ö¼ÓºÅ
-		Vector& operator -(const Vector &vVec);           //ÖØÔØÒ»¸ö¼õºÅ
-		Vector& operator =(const Vector &vVec);
+		const Vector & operator ~();                            //é‡è½½å–åæ–¹å‘
+		double operator *(const Vector& vVec);            //é‡è½½ä¸€ä¸ªä¹˜æ³•å–æ•°ä¹˜
+		const Vector& operator +(const Vector &vVec);           //é‡è½½ä¸€ä¸ªåŠ å·
+		const Vector& operator -(const Vector &vVec);           //é‡è½½ä¸€ä¸ªå‡å·
+		const Vector& operator =(const Vector &vVec);
 		bool operator ==(const Vector &vVec);
 
 
 	private:
-		double    length;                                 //³¤¶È
-		double    direction;                              //·½Ïò½Ç¶È
+		double    length;                                 //é•¿åº¦
+		double    direction;                              //æ–¹å‘è§’åº¦
 	};
+	const Vector &operator *(Vector& vVec, double dNum);
 };
 
-Vector &operator *(const Vector& vVec, double dNum);
 
 #endif                                                    // !_VECTOR_H
 
