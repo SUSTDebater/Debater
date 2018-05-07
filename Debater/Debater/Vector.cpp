@@ -15,11 +15,11 @@ Vector::Vector(const Vector& vVec) {
 	this->direction = vVec.direction;
 }
 
-double Vector::getMod() {
+inline double Vector::getMod() {
 	return this->length;
 }
 
-double Vector::getAngle() {
+inline double Vector::getAngle() {
 	return this->direction;
 }
 
@@ -74,22 +74,16 @@ double Vector::between(const Vector &vVec) {
 	return dir;
 }
 
-bool Vector::vertical(const Vector &vVec) {
-	if (this->between(vVec) == 90 || this->between(vVec) == 270)
-		return true;
-    return false;
+inline bool Vector::vertical(const Vector &vVec) {
+	return this->between(vVec) == 90 || this->between(vVec) == 270;
 }
 
-bool Vector::parallel(const Vector &vVec) {
-	if (this->between(vVec) == 0 || this->between(vVec) == 180)
-		return true;
-    return false;
+inline bool Vector::parallel(const Vector &vVec) {
+	return this->between(vVec) == 0 || this->between(vVec) == 180;
 }
 
-bool Vector::equal(const Vector &vVec) {
-	if (this->between(vVec) == 0 && this->length == vVec.length)
-		return true;
-	return false;
+inline bool Vector::equal(const Vector &vVec) {
+	return this->between(vVec) == 0 && this->length == vVec.length;
 }
 
 inline Vector& Vector::operator +(const Vector &vVec) {
@@ -119,11 +113,10 @@ inline Vector& Vector ::operator =(const Vector &vVec) {
 
 
 inline bool Vector ::operator ==(const Vector &vVec) {
-	if (this->equal(vVec))  return true;
-		return false;
+	return (this->equal(vVec));
 }
 
-Vector &operator *(const Vector& vVec, double dNum) {
+inline Vector &operator *(const Vector& vVec, double dNum) {
 	return vVec.multiply(dNum);                                //最后一个点乘 我不知道这个到底算不算不是友元函数的怎么调用 应该写错了 
 }                                                              //但是我不会写  你看一下  就这一个地方不会 其他地方都按照你的要求改了
                                                                //如果还有错的 跟我说就行了 我继续去改。

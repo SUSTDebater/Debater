@@ -36,7 +36,7 @@ namespace SUST {
 		double    length;                                 //长度
 		double    direction;                              //方向角度
 	};
-}
+};
 
 Vector &operator *(const Vector& vVec, double dNum);
 
